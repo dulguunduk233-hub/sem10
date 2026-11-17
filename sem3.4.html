@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log In / Sign Up</title>
+</head>
+
+<body style="margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:30px; box-sizing:border-box; font-family:Poppins,Arial,sans-serif; background:url('https://i.pinimg.com/1200x/d1/65/a5/d165a5b9298269fb03868cdc167d5d81.jpg') no-repeat center center / cover; background-attachment:fixed;">
+
+  <div style="position:relative; display:flex; width:900px; max-width:100%; min-height:600px; background:#fff; border-radius:24px; overflow:hidden;">
+
+    <!-- LEFT SIDE -->
+    <div style="width:55%; padding:40px 56px; z-index:1; box-sizing:border-box;">
+
+      <div style="color:#d9829f; font-size:24px; font-weight:600;">Logo Here</div>
+
+      <!-- LOG IN -->
+      <a name="login"></a>
+      <p style="font-size:11px; margin:6px 0 0;">Welcome back !!!</p>
+      <h1 style="font-size:36px; margin:8px 0 16px;">Log In</h1>
+
+      <form action="#" method="post" style="display:flex; flex-direction:column;">
+        <label for="login-email" style="font-size:12px; margin-top:12px;">Email</label>
+        <input type="email" id="login-email" name="email" placeholder="login@gmail.com" required
+               style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+          <label for="login-password" style="font-size:12px;">Password</label>
+          <a href="#" style="font-size:10px; color:#999; text-decoration:none;">Forgot Password ?</a>
+        </div>
+        <input type="password" id="login-password" name="password" placeholder="Password" required
+               style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+
+        <input type="submit" value="LOGIN →"
+               style="align-self:center; margin-top:24px; padding:10px 36px; border:none; border-radius:20px; background:#d9829f; color:#fff; font-size:12px; font-weight:600; cursor:pointer;">
+      </form>
+
+      <p style="text-align:center; font-size:10px; color:#4f8fb0; margin:16px 0 12px;">or continue with</p>
+      <div style="display:flex; justify-content:center; gap:10px;">
+        <button type="button" style="width:64px; height:28px; border:1px solid #4f8fb0; border-radius:14px; background:#fff; font-weight:700; font-size:12px; color:#ea4335;">G</button>
+        <button type="button" style="width:64px; height:28px; border:1px solid #4f8fb0; border-radius:14px; background:#fff; font-weight:700; font-size:12px; color:#000;">GitHub</button>
+        <button type="button" style="width:64px; height:28px; border:1px solid #4f8fb0; border-radius:14px; background:#fff; font-weight:700; font-size:12px; color:#1877f2;">f</button>
+      </div>
+
+      <p style="text-align:center; font-size:10px; color:#777; margin-top:18px;">
+        Don't have an account yet?
+        <a href="#signup" style="color:#d9829f; text-decoration:none;">Sign up for free</a>
+      </p>
+
+      <hr style="margin:40px 0; border:none; border-top:1px solid #ddd;">
+
+      <!-- SIGN UP -->
+      <a name="signup"></a>
+      <p style="font-size:11px; margin:6px 0 0;">Create your account !!!</p>
+      <h1 style="font-size:36px; margin:8px 0 16px;">Sign Up</h1>
+
+      <form action="#" method="post" style="display:flex; flex-direction:column;">
+        <label for="su-name" style="font-size:12px; margin-top:12px;">Full name</label>
+        <input type="text" id="su-name" name="name" required
+               style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+
+        <label for="su-email" style="font-size:12px; margin-top:12px;">Email</label>
+        <input type="email" id="su-email" name="email" required
+               style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+
+        <label for="su-password" style="font-size:12px; margin-top:12px;">Password</label>
+        <input type="password" id="su-password" name="password" minlength="8" required
+               style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+
+        <label for="su-confirm" style="font-size:12px; margin-top:12px;">Confirm password</label>
+        <input type="password" id="su-confirm" name="confirm" minlength="8" required
+               style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+
+        <label for="su-country" style="font-size:12px; margin-top:12px;">Country</label>
+        <select id="su-country" name="country"
+                style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box;">
+          <option value="">Choose a country</option>
+          <option value="mn">Mongolia</option>
+          <option value="kr">South Korea</option>
+          <option value="jp">Japan</option>
+          <option value="us">United States</option>
+        </select>
+
+        <label for="su-about" style="font-size:12px; margin-top:12px;">About you</label>
+        <textarea id="su-about" name="about" rows="3"
+                  style="width:100%; padding:10px 12px; margin-top:4px; border:none; background:#bcd9e6; font-size:12px; box-sizing:border-box; resize:vertical;"></textarea>
+
+        <input type="submit" value="SIGN UP →"
+               style="align-self:center; margin-top:24px; padding:10px 36px; border:none; border-radius:20px; background:#d9829f; color:#fff; font-size:12px; font-weight:600; cursor:pointer;">
+      </form>
+
+      <p style="text-align:center; font-size:10px; color:#777; margin-top:18px;">
+        Already have an account?
+        <a href="#login" style="color:#d9829f; text-decoration:none;">Log in</a>
+      </p>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div style="position:absolute; top:0; right:0; width:45%; height:100%; background:#bcd9e6; border-radius:24px; display:flex; justify-content:center; align-items:flex-end;">
+      <img src="illustration.png" alt="Girl with laptop and cactus" style="width:130%; max-width:none; margin-right:10%;">
+    </div>
+
+  </div>
+
+</body>
+</html>

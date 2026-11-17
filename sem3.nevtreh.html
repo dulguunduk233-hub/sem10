@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log In</title>
+</head>
+
+<body style="margin:0;
+             min-height:100vh; /*percent of the screen height*/
+             display:flex;
+             justify-content:center;  /*Centers the card left to right (along the main axis)*/
+             align-items:center;  /*Centers the card top to bottom (along the cross axis).*/
+             font-family:Arial;
+             background-image:url('https://i.pinimg.com/1200x/d1/65/a5/d165a5b9298269fb03868cdc167d5d81.jpg');
+             background-size:cover;">
+
+<div style="position:relative;
+            width:900px;
+            min-height:600px;    /* the card is at least 600px tall and grows if the form is longer */
+            background:#fcfafb;
+            border-radius:24px;
+            overflow:hidden;"> <!-- cuts off anything that sticks out past the rounded corners -->
+
+    <!-- LEFT SIDE -->
+    <div style="width:55%; 
+                padding:40px 56px; 
+                z-index:1;                  /*Decides which element is in front when two overlap.*/
+                box-sizing:border-box;">    <!--makes padding count inside the width, so the box stays exactly 55% wide.-->
+
+      
+      <p style="width:fit-content; 
+                color:#d9829f; 
+                font-size:36px; 
+                font-weight:600; 
+                margin:0 auto 10px auto; 
+                margin-top:30px">Welcome back</p>
+
+      <h1 style="width:fit-content; 
+                font-size:20px; 
+                margin:0; 
+                margin-top:90px;">Log In</h1>
+
+      <form action="#"               
+            method="post" 
+            style="display:flex; 
+                   flex-direction:column;">
+
+        <label for="login-email" 
+               style="font-size:12px; 
+                      margin-top:12px;">Email</label>
+
+        <input type="email" 
+              id="login-email" 
+              name="email" 
+              
+              style="width:100%; 
+                    padding:10px 12px; 
+                    margin-top:4px; 
+                    border:none; 
+                    background:#bcd9e6; 
+                    font-size:12px; 
+                    box-sizing:border-box;">
+
+        <div style="display:flex; 
+                    justify-content:space-between; 
+                    align-items:center; 
+                    margin-top:12px;">
+
+          <label for="login-password" 
+                 style="font-size:12px;">Password</label>
+
+        
+        </div>
+        <input type="password" 
+               id="login-password"
+               name="password" 
+                
+               style="width:100%; 
+                      padding:10px 12px; 
+                      margin-top:4px; 
+                      border:none; 
+                      background:#bcd9e6; 
+                      font-size:12px; 
+                      box-sizing:border-box;">
+
+        <input type="submit" 
+               value="LOGIN →"
+               style="align-self:center; 
+                      margin-top:24px; 
+                      padding:10px 36px; 
+                      border:none; 
+                      border-radius:20px; 
+                      background:#d9829f; 
+                      color:#fff; 
+                      font-size:12px; 
+                      font-weight:600; 
+                      cursor:pointer;">
+      </form>
+
+      <p style="text-align:center; 
+                font-size:13px; 
+                color:#777; 
+                margin-top:18px;"> Don't have an account yet?
+        <a href="sem2.html" style="color:#d9829f;">Sign up</a>
+      </p>
+
+    </div>
+
+
+   <!-- RIGHT SIDE -->
+<div style="position:absolute; 
+            top:0; 
+            right:0; 
+            width:45%; 
+            height:100%; 
+            border-radius:24px; ">
+  <img src="https://i.pinimg.com/1200x/a3/d2/e6/a3d2e6d96769d634e7a3a8e038fe3fe1.jpg"
+       alt="zurag"
+       style="width:100%; 
+              height:100%;  
+              object-fit:cover; 
+              display:block;">
+</div>
+
+  </div>
+
+</body>
+</html>

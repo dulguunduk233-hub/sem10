@@ -1,0 +1,186 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>about me</title>
+    
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            background-color: #202833;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 5px solid #000;
+        }
+
+        .nav-btn {
+            padding: 10px 30px;
+            cursor: pointer;
+            border: 1px dashed #ffffff;
+            background: #eae0c8;
+            font-weight: bold;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            background-color: #ffffff;
+        }
+
+        .sidebar {
+            background-color: #694a47;
+            width: 30%;
+            padding: 20px;
+            color: #000000;
+            text-align: center;
+        }
+
+        .profile-pic-box {
+            width: 210px;
+            height: 280px;
+            margin: 0 auto 50px auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .fitted-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-wrapper {
+            background-color: #fff0de;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .photo-container img {
+            height: 300px;
+        }
+
+        .bottom-footer {
+            background-color: #202833;
+            color: #fff0de;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .tab-content { display: none; width: 100%; text-align: center; }
+        #home { display: block; }
+        body:has(.tab-content:target) #home:not(:target) { display: none; }
+        .tab-content:target { display: block; }
+
+@media screen and (max-width: 1023px) {
+    .sidebar { width: 50%; }
+    .nav-btn { padding: 10px 20px; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .sidebar { width: 50%; }
+    .nav-btn { padding: 10px 20px; }
+}
+
+/* Small tablets: 600px to 767px */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    .sidebar { width: 40%; }
+    .nav-btn { padding: 10px 12px; }
+}
+    </style>
+    
+</head>
+<body>
+
+    <div class="nav-bar">
+        <a href="#home"><button class="nav-btn">Нүүр хуудас</button></a>
+        <a href="#photos"><button class="nav-btn">Зурагнууд</button></a>
+        <a href="#videos"><button class="nav-btn">Бичлэгнүүд</button></a>
+        <a href="#map"><button class="nav-btn">Газрын зураг</button></a>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="profile-pic-box">
+                <img src="https://i.pinimg.com/736x/32/34/9f/32349f610340aa2222ee1140f0ce50f2.jpg"
+                
+                class="fitted-photo">
+            </div>
+
+            <div class="info-section">
+                <h3>Хувийн мэдээлэл</h3>
+                <hr style="border: 2px solid #ccc;">
+                <p>Нэр: Дөлгөөн </p>
+                <p>Мэргэжил: Оюутан </p>
+                <p>Дуртай хамтлаг: One ok rock </p>
+                <p>Дуртай хоол: Банштай цай </p>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div id="home" class="tab-content">
+                <p>LAB-2 seminar</p>
+            </div>
+
+            <div id="photos" class="tab-content">
+                <div class="photo-container">
+                    <img src="https://i.pinimg.com/736x/ab/d9/88/abd988ec2896fbd39f438af6b418c62f.jpg" alt="Зураг 1">
+                    <img src="https://i.pinimg.com/736x/d0/e8/3b/d0e83bb2569551ac1e82f02e0d642223.jpg" alt="Зураг 2">
+                    <img src="https://i.pinimg.com/736x/0e/34/4c/0e344cb9d8d2c05380ea4f1c6b6e400e.jpg" alt="Зураг 3">
+                </div>
+            </div>
+
+            <div id="videos" class="tab-content">
+                <iframe
+                width="800"
+                height="500"
+                src="https://www.youtube.com/embed/xGbxsiBZGPI?si=87MFOw_9VHruqf-L"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+                </iframe>
+            </div>
+
+            <div id="map" class="tab-content">
+                <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8181.002032329478!2d106.90736904302226!3d47.91947947421736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d96925a7fe7a275%3A0xf5aeb8f7dc26e490!2sState%20Department%20Store!5e0!3m2!1sen!2smn!4v1790529688580!5m2!1sen!2smn"
+                width="800"
+                height="600"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-footer">
+        Гэрийн хаяг: Улаанбаатар хот, --- дүүрэг
+    </div>
+
+</body>
+</html>

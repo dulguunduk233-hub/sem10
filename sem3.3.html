@@ -1,0 +1,236 @@
+
+<head>
+  <meta charset="UTF-8">
+  
+  <title>sem3</title>
+  <style>
+    * { box-sizing: border-box; 
+        margin: 0; padding: 0; 
+        font-family: "Poppins", Arial, sans-serif; }
+
+    body { 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background:
+    url("https://i.pinimg.com/1200x/d1/65/a5/d165a5b9298269fb03868cdc167d5d81.jpg") no-repeat center center / cover;
+    background-attachment: fixed;
+}
+
+    .card {
+      position: relative;
+      display: flex;
+      width: 900px;
+      max-width: 100%;
+      min-height: 600px;
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .left { width: 55%; padding: 40px 56px; z-index: 1; }
+    .logo { color: #d9829f; font-size: 24px; font-weight: 600; }
+    .welcome { font-size: 11px; margin-top: 6px; }
+    h1 { font-size: 36px; margin: 8px 0 16px; }
+
+    /* Only the active view is visible */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    form { display: flex; flex-direction: column; }
+    label { font-size: 12px; margin-top: 12px; }
+    .pass-row { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+    .pass-row label { margin-top: 0; }
+    .pass-row a { font-size: 10px; color: #999; text-decoration: none; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 4px;
+      border: none;
+      background: #bcd9e6;
+      font-size: 12px;
+    }
+    input:focus, select:focus { outline: 2px solid #d9829f; }
+
+    input[type="submit"] {
+      align-self: center;
+      margin-top: 24px;
+      padding: 10px 36px;
+      border: none;
+      border-radius: 20px;
+      background: #d9829f;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover { background: #c46a89; }
+
+    .error { color: #c0392b; font-size: 11px; min-height: 14px; margin-top: 8px; text-align: center; }
+
+    .or { text-align: center; font-size: 10px; color: #4f8fb0; margin: 16px 0 12px; }
+    .social { display: flex; justify-content: center; gap: 10px; }
+    .social button {
+      width: 64px; height: 28px;
+      border: 1px solid #4f8fb0;
+      border-radius: 14px;
+      background: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .g { color: #ea4335; }
+    .gh { color: #000; }
+    .fb { color: #1877f2; }
+
+    .switch { text-align: center; font-size: 10px; color: #777; margin-top: 18px; }
+    .switch a { color: #d9829f; text-decoration: none; cursor: pointer; }
+
+    .right {
+      position: absolute;
+      top: 0; right: 0;
+      width: 45%; height: 100%;
+      background: #bcd9e6;
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .right img { width: 130%; max-width: none; margin-right: 10%; }
+
+    @media (max-width: 760px) {
+      .left { width: 100%; padding: 32px; }
+      .right { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="left">
+      <div class="logo">Logo Here</div>
+
+      <!-- LOG IN VIEW -->
+      <div class="view active" id="login-view">
+        <p class="welcome">Welcome back !!!</p>
+        <h1>Log In</h1>
+
+        <form id="login-form" action="#" method="post">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" placeholder="login@gmail.com" required>
+
+          <div class="pass-row">
+            <label for="login-password">Password</label>
+            <a href="#">Forgot Password ?</a>
+          </div>
+          <input type="password" id="login-password" name="password" placeholder="Password" required>
+
+          <p class="error" id="login-error"></p>
+          <input type="submit" value="LOGIN →">
+        </form>
+
+        <p class="or">or continue with</p>
+        <div class="social">
+          <button type="button" class="g">G</button>
+          <button type="button" class="gh">GitHub</button>
+          <button type="button" class="fb">f</button>
+        </div>
+
+        <p class="switch">Don't have an account yet? <a onclick="showView('signup-view')">Sign up for free</a></p>
+      </div>
+
+      <!-- SIGN UP VIEW -->
+      <div class="view" id="signup-view">
+        <p class="welcome">Create your account !!!</p>
+        <h1>Sign Up</h1>
+
+        <form id="signup-form" action="#" method="post">
+          <label for="su-name">Full name</label>
+          <input type="text" id="su-name" name="name" required>
+
+          <label for="su-email">Email</label>
+          <input type="email" id="su-email" name="email" required>
+
+          <label for="su-password">Password</label>
+          <input type="password" id="su-password" name="password" minlength="8" required>
+
+          <label for="su-confirm">Confirm password</label>
+          <input type="password" id="su-confirm" name="confirm" minlength="8" required>
+
+          <p class="error" id="signup-error"></p>
+          <input type="submit" value="SIGN UP →">
+        </form>
+
+        <p class="switch">Already have an account? <a onclick="showView('login-view')">Log in</a></p>
+      </div>
+    </div>
+
+    <div class="right">
+      <img src="illustration.png" alt="Girl with laptop and cactus">
+    </div>
+
+  </div>
+
+  <script>
+    // Switch between Log In and Sign Up
+    function showView(id) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Log In
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const error = document.getElementById('login-error');
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        error.style.color = 'green';
+        error.textContent = 'Welcome back, ' + user.name + '!';
+      } else {
+        error.style.color = '#c0392b';
+        error.textContent = 'Wrong email or password.';
+      }
+    });
+
+    // Sign Up
+    document.getElementById('signup-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('su-name').value;
+      const email = document.getElementById('su-email').value;
+      const password = document.getElementById('su-password').value;
+      const confirm = document.getElementById('su-confirm').value;
+      const error = document.getElementById('signup-error');
+
+      if (password !== confirm) {
+        error.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.some(u => u.email === email)) {
+        error.textContent = 'This email is already registered.';
+        return;
+      }
+
+      users.push({ name, email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+
+      error.textContent = '';
+      this.reset();
+      showView('login-view');
+      document.getElementById('login-email').value = email;
+    });
+  </script>
+</body>
+</html>

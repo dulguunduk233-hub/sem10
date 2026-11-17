@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Шагай морин уралдаан</title>
+<style>
+:root{--bg:#fff;--fg:#111;--card:#f6f1ea;--accent:#b8650a;--line:#111;--win:#12a150;--horse-filter:none;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111;--fg:#f3f3f3;--card:#222;--accent:#e08a2a;--line:#eee;--win:#2ecc71;--horse-filter:invert(1)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;padding:16px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:1.4rem;margin:0 0 12px}
+.top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--card);padding:12px;border-radius:12px}
+.bones{display:flex;gap:8px}
+.bone{width:64px;height:64px;border-radius:12px;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;border:2px solid var(--accent)}
+.bone img{width:36px;height:36px;object-fit:contain;visibility:hidden}
+.bone.roll{animation:sh .15s infinite}
+@keyframes sh{50%{transform:rotate(12deg) translateY(-4px)}}
+button{background:var(--accent);color:#fff;border:2px solid #f5a623;border-radius:12px;padding:12px 20px;font-weight:700;font-size:1rem;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.info{flex:1;min-width:180px;font-weight:600}
+.track{margin-top:16px;background:var(--card);border-radius:12px;padding:12px 12px 12px 0;overflow-x:auto}
+.lane{position:relative;height:90px;display:flex;align-items:center}
+.name{width:96px;padding-left:12px;font-weight:700;font-size:.85rem;flex:none}
+.name.turn{color:var(--accent)}
+.course{position:relative;flex:1;min-width:480px;height:100%;border-bottom:3px dashed var(--line)}
+.horse{position:absolute;bottom:6px;left:0;transition:left .6s ease;line-height:0}
+.horse img{height:64px;width:auto;display:block;filter:var(--horse-filter)}
+.finish{position:absolute;top:0;bottom:0;right:0;width:20px;background:repeating-conic-gradient(var(--line) 0 25%,var(--bg) 0 50%) 0 0/20px 20px}
+.log{margin-top:12px;font-size:.9rem;max-height:140px;overflow:auto;background:var(--card);border-radius:12px;padding:10px 14px}
+.log div{padding:2px 0}
+.win{color:var(--win);font-weight:800}
+</style>q`aAaaaaaawswqwqazseQWWQSW212121A2WQ2WQ123w2w21q  Q32WQW    
+</head>
+<body>
+<div class="wrap">
+  <h1>Шагай морин уралдаан</h1>
+
+  <div class="top">
+    <div class="bones">
+      <div class="bone"><img src="https://i.pinimg.com/736x/43/1b/ea/431bea3d141295703b1f29e6d49f3316.jpg" alt=""><div>?</div></div>
+      <div class="bone"><img src="https://i.pinimg.com/736x/12/c9/58/12c958e4a82d8b4cbf768655bfdccf2d.jpg" alt=""><div>?</div></div>
+      <div class="bone"><img src="https://i.pinimg.com/736x/0d/a1/0d/0da10d567e11f25fa5f8295773eaa433.jpg" alt=""><div>?</div></div>
+      <div class="bone"><img src="https://i.pinimg.com/736x/3c/ee/b6/3ceeb6163ce1ded767d2e087dfa8feb3.jpg" alt=""><div>?</div></div>
+    </div>
+    <button id="btn">Шагай орхих</button>
+    <div class="info" id="info"></div>
+  </div>
+
+  <div class="track">
+    <div class="lane">
+      <div class="name">Тоглогч 1</div>
+      <div class="course">
+        <div class="horse"><img src="https://i.pinimg.com/736x/53/c7/fd/53c7fd0f8a42f94592929570e91038b9.jpg" alt="Тоглогч 1"></div>
+        <div class="finish"></div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="name">Тоглогч 2</div>
+      <div class="course">
+        <div class="horse"><img src="https://i.pinimg.com/736x/53/c7/fd/53c7fd0f8a42f94592929570e91038b9.jpg" alt="Тоглогч 2"></div>
+        <div class="finish"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+const FINISH = 10;
+const SIDES = [
+  { name: "Морь",  img: "https://i.pinimg.com/736x/43/1b/ea/431bea3d141295703b1f29e6d49f3316.jpg" },
+  { name: "Тэмээ", img: "https://i.pinimg.com/736x/12/c9/58/12c958e4a82d8b4cbf768655bfdccf2d.jpg" },
+  { name: "Хонь",  img: "https://i.pinimg.com/736x/0d/a1/0d/0da10d567e11f25fa5f8295773eaa433.jpg" },
+  { name: "Ямаа",  img: "https://i.pinimg.com/736x/3c/ee/b6/3ceeb6163ce1ded767d2e087dfa8feb3.jpg" }
+];
+
+// Elements already in the HTML
+const bones  = [...document.querySelectorAll(".bone")];
+const horses = [...document.querySelectorAll(".horse")];
+const names  = [...document.querySelectorAll(".name")];
+const btn    = document.getElementById("btn");
+const info   = document.getElementById("info");
+const logBox = document.getElementById("log");
+
+const players = [
+  { name: "Тоглогч 1", pos: 0 },
+  { name: "Тоглогч 2", pos: 0 }
+];
+let turn = 0, busy = false, over = false;
+
+function showSide(b, s) {
+  const img = b.querySelector("img");
+  img.src = s.img;
+  img.style.visibility = "visible";
+  b.lastElementChild.textContent = s.name;
+}
+
+function log(msg, cls) {
+  const d = document.createElement("div");
+  if (cls) d.className = cls;
+  d.textContent = msg;
+  logBox.prepend(d);
+}
+
+function updateTurn() {
+  names.forEach((n, i) => n.classList.toggle("turn", i === turn && !over));
+  info.textContent = over ? "Тоглоом дууслаа" : players[turn].name + "-ийн ээлж";
+}
+
+function moveHorse(i) {
+  const course = horses[i].parentElement;
+  const max = course.clientWidth - horses[i].offsetWidth - 20;
+  horses[i].style.left = (players[i].pos / FINISH) * max + "px";
+}
+
+function score(result) {
+  const horseCount = result.filter((s) => s === 0).length;
+  const same = result.every((s) => s === result[0]);
+  const allDiff = new Set(result).size === 4;
+  let steps = horseCount, note = "";
+  if (same) { steps += 3; note = " — бүгд адилхан! +3"; }
+  else if (allDiff) { steps = Math.max(steps, 3); note = " — дөрвөн өөр тал! 3 алхам"; }
+  return { steps, note };
+}
+
+function throwBones() {
+  if (busy || over) return;
+  busy = true;
+  btn.disabled = true;
+  bones.forEach((b) => b.classList.add("roll"));
+  const timer = setInterval(() => {
+    bones.forEach((b) => showSide(b, SIDES[Math.floor(Math.random() * 4)]));
+  }, 100);
+
+  setTimeout(() => {
+    clearInterval(timer);
+    const result = bones.map(() => Math.floor(Math.random() * 4));
+    bones.forEach((b, i) => {
+      b.classList.remove("roll");
+      showSide(b, SIDES[result[i]]);
+    });
+    const { steps, note } = score(result);
+    const p = players[turn];
+    p.pos = Math.min(FINISH, p.pos + steps);
+    moveHorse(turn);
+    log(p.name + ": " + steps + " алхам" + note + " (" + p.pos + "/" + FINISH + ")");
+
+    if (p.pos >= FINISH) {
+      over = true;
+      log(p.name + " түрүүлэв!", "win");
+      info.textContent = p.name + " ялав!";
+      btn.textContent = "Дахин тоглох";
+      btn.disabled = false;
+      busy = false;
+      names.forEach((n) => n.classList.remove("turn"));
+      return;
+    }
+    turn = 1 - turn;
+    updateTurn();
+    btn.disabled = false;
+    busy = false;
+  }, 900);
+}
+
+function reset() {
+  players.forEach((p, i) => { p.pos = 0; moveHorse(i); });
+  turn = 0; over = false; busy = false;
+  btn.textContent = "Шагай орхих";
+  logBox.textContent = "";
+  bones.forEach((b) => {
+    b.querySelector("img").style.visibility = "hidden";
+    b.lastElementChild.textContent = "?";
+  });
+  updateTurn();
+}
+
+btn.addEventListener("click", () => (over ? reset() : throwBones()));
+window.addEventListener("resize", () => players.forEach((_, i) => moveHorse(i)));
+updateTurn();
+</script>
+</body>
+</html>
