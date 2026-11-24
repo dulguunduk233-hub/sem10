@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<title>Шагай морин уралдаан</title>
+<style>
+  body { font-family: Arial, sans-serif;
+         background: #f6f1ea;
+         padding: 20px; }
+  h1 { text-align: center; }
+
+  /* 4 shagai boxes */
+  #bones { display: flex;
+           gap: 10px;
+           justify-content: center;
+           margin-bottom: 15px; }
+  .bone { width: 80px;
+          height: 90px;
+          background: white;
+          border: 2px solid orange;
+          border-radius: 10px;
+          text-align: center;
+          font-weight: bold; }
+  .bone img { width: 60px;
+              height: 60px;
+              object-fit: contain; }
+
+  button { display: block;
+           margin: 0 auto 10px;
+           padding: 12px 24px;
+           font-size: 16px;
+           background: orange;
+           border: none;
+           border-radius: 10px;
+           cursor: pointer; }
+  #message { text-align: center;
+             font-size: 18px;
+             margin-bottom: 15px; }
+
+  /* race track */
+  .lane { position: relative;
+          height: 80px;
+          border-bottom: 3px dashed black;
+          margin-bottom: 10px;
+          background: white;
+          overflow: hidden; }
+  .lane .label { position: absolute;
+                 left: 5px;
+                 top: 5px;
+                 font-weight: bold; }
+  .horse { position: absolute;
+           bottom: 2px;
+           left: 0;
+           width: 100px;
+           height: auto;
+           mix-blend-mode: multiply;
+           transition: left 0.5s; }
+  .finish { position: absolute;
+            right: 0;
+            top: 0;
+            width: 15px;
+            height: 100%;
+            background: repeating-linear-gradient(black 0 10px, white 10px 20px); }
+</style>
+</head>
+<body>
+
+<h1>Шагай морин уралдаан</h1>
+
+<div id="bones"></div>
+<button id="btn">Шагай орхих</button>
+<div id="message">Тоглогч 1-ийн ээлж</div>
+
+<div id="track"></div>
+
+<script>
+// ---------- DATA ----------
+const sides = [
+  { name: "Морь",  img: "https://i.pinimg.com/736x/43/1b/ea/431bea3d141295703b1f29e6d49f3316.jpg" },
+  { name: "Тэмээ", img: "https://i.pinimg.com/736x/12/c9/58/12c958e4a82d8b4cbf768655bfdccf2d.jpg" },
+  { name: "Хонь",  img: "https://i.pinimg.com/736x/0d/a1/0d/0da10d567e11f25fa5f8295773eaa433.jpg" },
+  { name: "Ямаа",  img: "https://i.pinimg.com/736x/3c/ee/b6/3ceeb6163ce1ded767d2e087dfa8feb3.jpg" }
+];
+const horseImg = "https://i.pinimg.com/736x/53/c7/fd/53c7fd0f8a42f94592929570e91038b9.jpg";
+
+const finishLine = 10;           // steps needed to win
+let positions = [0, 0];         // steps of player 1 and player 2
+let turn = 0;                   // 0 = player 1, 1 = player 2
+let gameOver = false;
+
+// ---------- GET ELEMENTS ----------
+const bonesDiv = document.getElementById("bones");
+const track = document.getElementById("track");
+const message = document.getElementById("message");
+const btn = document.getElementById("btn");
+
+// ---------- BUILD 4 SHAGAI BOXES ----------
+const boneBoxes = [];
+for (let i = 0; i < 4; i++) {
+  const box = document.createElement("div");
+  box.className = "bone";
+  box.innerHTML = '<img src="' + sides[0].img + '"><div>?</div>';
+  bonesDiv.appendChild(box);
+  boneBoxes.push(box);
+}
+
+// ---------- BUILD 2 LANES WITH HORSES ----------
+const horses = [];
+for (let i = 0; i < 2; i++) {
+  const lane = document.createElement("div");
+  lane.className = "lane";
+  lane.innerHTML =
+    '<div class="label">Тоглогч ' + (i + 1) + '</div>' +
+    '<img class="horse" src="' + horseImg + '">' +
+    '<div class="finish"></div>';
+  track.appendChild(lane);
+  horses.push(lane.querySelector(".horse"));
+}
+
+// ---------- MOVE A HORSE ----------
+7
+function moveHorse(i) {
+  const progress = positions[i] / finishLine;
+  horses[i].style.left = "calc((100% - 115px) * " + progress + ")";
+}
+
+// ---------- THROW THE SHAGAI ----------
+function throwShagai() {
+  if (gameOver) {            // game finished -> restart
+    positions = [0, 0];
+    turn = 0;
+    gameOver = false;
+    moveHorse(0);
+    moveHorse(1);
+    btn.textContent = "Шагай орхих";
+    message.textContent = "Тоглогч 1-ийн ээлж";
+    return;
+  }
+
+  let steps = 0;
+  for (let i = 0; i < 4; i++) {
+    const r = Math.floor(Math.random() * 4);          // random 0..3
+    boneBoxes[i].querySelector("img").src = sides[r].img;
+    boneBoxes[i].querySelector("div").textContent = sides[r].name;
+    if (r === 0) steps++;                              // Морь = 1 step
+  }
+
+  positions[turn] += steps;
+  if (positions[turn] > finishLine) positions[turn] = finishLine;
+
+  moveHorse(turn);
+
+  // did someone win?
+  if (positions[turn] === finishLine) {
+    message.textContent = "Тоглогч " + (turn + 1) + " ялав!";
+    btn.textContent = "Дахин тоглох";
+    gameOver = true;
+    return;
+  }
+
+  // next player
+  message.textContent = "Тоглогч " + (turn + 1) + ": " + steps + " алхам. ";
+  turn = 1 - turn;
+  message.textContent += "Тоглогч " + (turn + 1) + "-ийн ээлж";
+}
+
+btn.addEventListener("click", throwShagai);
+</script>
+
+</body>
+</html>

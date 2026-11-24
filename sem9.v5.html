@@ -79,7 +79,7 @@ const sides = [
 ];
 const horseImg = "https://i.pinimg.com/736x/53/c7/fd/53c7fd0f8a42f94592929570e91038b9.jpg";
 
-const finishLine = 10;          // steps needed to win
+const finishLine = 5;          // steps needed to win
 let positions = [0, 0];         // steps of player 1 and player 2
 let turn = 0;                   // 0 = player 1, 1 = player 2
 let gameOver = false;
@@ -138,7 +138,7 @@ function throwShagai() {
   if (positions[turn] > finishLine) positions[turn] = finishLine;
 
   // move the horse (85% of the lane = finish line)
-  horses[turn].style.left = (positions[turn] / finishLine) * 85 + "%";
+  horses[turn].style.left = (positions[turn] / finishLine) * 100 + "%";
 
   // did someone win?
   if (positions[turn] === finishLine) {
